@@ -221,11 +221,12 @@
     <div class="hero-body">
       <img src="static/images/sc_teaser.png" alt="SwitchCraft Teaser Figure" style="width: 100%; border-radius: 8px;">
       <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 1rem;">
-        <strong>Figure 1.</strong> SwitchCraft enables flexible multi-event video generation across multiple actions and scenes with smooth transitions. It steers attention to enhance prompt alignment and maintain coherent temporal evolution while preserving global information.
+        [cite_start]<strong>Figure 1.</strong> SwitchCraft enables flexible multi-event video generation across multiple actions and scenes with smooth transitions[cite: 11]. [cite_start]It steers attention to enhance prompt alignment and maintain coherent temporal evolution while preserving global information[cite: 12].
       </h2>
     </div>
   </div>
 </section>
+
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -233,15 +234,16 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Recent advances in text-to-video diffusion models have enabled high-fidelity and temporally coherent videos synthesis. However, current models are predominantly optimized for single-event generation. When handling multi-event prompts, without explicit temporal grounding, such models often produce blended or collapsed scenes that break the intended narrative. 
-            To address this limitation, we present SwitchCraft, a training-free framework for multi-event video generation. Our key insight is that uniform prompt injection across time ignores the correspondence between events and frames. To this end, we introduce <b>Event-Aligned Query Steering (EAQS)</b>, which steers frame-level attention to align with relevant event prompts. Furthermore, we propose <b>Auto-Balance Strength Solver (ABSS)</b>, which adaptively balances steering strength to preserve temporal consistency and visual fidelity. 
-            Extensive experiments demonstrate that SwitchCraft substantially improves prompt alignment, event clarity, and scene consistency compared with existing baselines, offering a simple yet effective solution for multi-event video generation.
+            [cite_start]Recent advances in text-to-video diffusion models have enabled high-fidelity and temporally coherent videos synthesis[cite: 14]. [cite_start]However, current models are predominantly optimized for single-event generation[cite: 15]. [cite_start]When handling multi-event prompts, without explicit temporal grounding, such models often produce blended or collapsed scenes that break the intended narrative[cite: 16]. 
+            [cite_start]To address this limitation, we present SwitchCraft, a training-free framework for multi-event video generation[cite: 17]. [cite_start]Our key insight is that uniform prompt injection across time ignores the correspondence between events and frames[cite: 18, 19]. [cite_start]To this end, we introduce <b>Event-Aligned Query Steering (EAQS)</b>, which steers frame-level attention to align with relevant event prompts[cite: 20]. [cite_start]Furthermore, we propose <b>Auto-Balance Strength Solver (ABSS)</b>, which adaptively balances steering strength to preserve temporal consistency and visual fidelity[cite: 21]. 
+            [cite_start]Extensive experiments demonstrate that SwitchCraft substantially improves prompt alignment, event clarity, and scene consistency compared with existing baselines, offering a simple yet effective solution for multi-event video generation[cite: 22].
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -250,7 +252,7 @@
         <img src="static/images/flowc.png" alt="SwitchCraft Method Flowchart" style="width: 100%; border-radius: 8px; margin-top: 15px;">
         <div class="content has-text-justified" style="margin-top: 15px;">
           <p>
-            <strong>Overview of SwitchCraft.</strong> <b>(a)</b> EAQS takes a text prompt and user specified event time spans, identifies anchor tokens for each event, and constructs event specific projectors from their attention keys. It steers video queries toward the target event and away from others in each temporal span. <b>(b)</b> ABSS estimates enhancement and suppression strengths by extracting dominant directions from the event keys and correcting the attention deficit. The updated queries pass through the video diffusion transformer so that each temporal span follows its intended event with smooth transitions.
+            [cite_start]<strong>Overview of SwitchCraft.</strong> <b>(a)</b> EAQS takes a text prompt and user specified event time spans, identifies anchor tokens for each event, and constructs event specific projectors from their attention keys[cite: 93]. [cite_start]It steers video queries toward the target event and away from others in each temporal span[cite: 94]. [cite_start]<b>(b)</b> ABSS estimates enhancement and suppression strengths by extracting dominant directions from the event keys and correcting the attention deficit[cite: 95]. [cite_start]The updated queries pass through the video diffusion transformer so that each temporal span follows its intended event with smooth transitions[cite: 96].
           </p>
         </div>
       </div>
@@ -265,14 +267,14 @@
         <h2 class="title is-3">Qualitative Comparisons</h2>
         <div class="content has-text-justified">
           <p>
-            SwitchCraft executes all events in the intended order, prevents leakage and omission, and maintains subject and scene consistency compared to baseline methods.
+            [cite_start]SwitchCraft executes all events in the intended order, prevents leakage and omission, and maintains subject and scene consistency compared to baseline methods[cite: 213].
           </p>
         </div>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 8px; margin-bottom: 20px;">
-          <source src="static/videos/comparison.mp4" type="video/mp4">
+          <source src="static/videos/comparison.mp4#t=0.001" type="video/mp4">
         </video>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 8px;">
-          <source src="static/videos/comparison_additional.mp4" type="video/mp4">
+          <source src="static/videos/comparison_additional.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
     </div>
@@ -286,18 +288,18 @@
         <h2 class="title is-3">Creative Occluding Transitions</h2>
         <div class="content has-text-justified">
           <p>
-            SwitchCraft produces in-shot occluding transitions that blend the first and last scenes while preserving subject identity, whereas baselines leave residual transition elements or degrade identity and scene coherence.
+            [cite_start]SwitchCraft produces in-shot occluding transitions that blend the first and last scenes while preserving subject identity, whereas baselines leave residual transition elements or degrade identity and scene coherence[cite: 414, 438].
           </p>
         </div>
         <div class="columns is-centered">
           <div class="column is-half">
             <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 8px;">
-              <source src="static/videos/transition1.mp4" type="video/mp4">
+              <source src="static/videos/transition1.mp4#t=0.001" type="video/mp4">
             </video>
           </div>
           <div class="column is-half">
             <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 8px;">
-              <source src="static/videos/transition2.mp4" type="video/mp4">
+              <source src="static/videos/transition2.mp4#t=0.001" type="video/mp4">
             </video>
           </div>
         </div>
@@ -313,11 +315,11 @@
         <h2 class="title is-3">Ablation Study</h2>
         <div class="content has-text-justified">
           <p>
-            Effectiveness of the key components. The full method yields complete sequences with stable quality, whereas removing parts leads to event leakage, omission, and degraded visual quality.
+            [cite_start]Effectiveness of the key components[cite: 314]. [cite_start]The full method yields complete sequences with stable quality, whereas removing parts leads to event leakage, omission, and degraded visual quality[cite: 315, 316].
           </p>
         </div>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 8px;">
-          <source src="static/videos/ablations.mp4" type="video/mp4">
+          <source src="static/videos/ablations.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
     </div>
@@ -332,97 +334,98 @@
       
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A man raises one arm, then scratches his head, then runs forward.
+          [cite_start]A man raises one arm, then scratches his head, then runs forward. [cite: 476]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/raise_point_run.mp4" type="video/mp4">
+          <source src="static/videos/raise_point_run.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A girl bends her knees, then touches her toes, then stands up.
+          [cite_start]A girl bends her knees, then touches her toes, then stands up. [cite: 477]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/bend_touch_stand_tall.mp4" type="video/mp4">
+          <source src="static/videos/bend_touch_stand_tall.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          In a living room, a dog sits, then jumps onto the sofa, then lies down.
+          [cite_start]In a living room, a dog sits, then jumps onto the sofa, then lies down. [cite: 478]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/dog_sit_jump_lie.mp4" type="video/mp4">
+          <source src="static/videos/dog_sit_jump_lie.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A girl is jumping in a gym, then stops and claps her hands.
+          [cite_start]A girl is jumping in a gym, then stops and claps her hands. [cite: 479]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/gym_jump_clap.mp4" type="video/mp4">
+          <source src="static/videos/gym_jump_clap.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          On a beach, a woman jogs, then drinks from a bottle, then continues jogging.
+          [cite_start]On a beach, a woman jogs, then drinks from a bottle, then continues jogging. [cite: 480]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/jog_drink_jog.mp4" type="video/mp4">
+          <source src="static/videos/jog_drink_jog.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A woman raises both hands, then points with one finger forward, then gives a thumbs up.
+          [cite_start]A woman raises both hands, then points with one finger forward, then gives a thumbs up. [cite: 481]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/raise_hands_point_thumbs_up.mp4" type="video/mp4">
+          <source src="static/videos/raise_hands_point_thumbs_up.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A red car drives on a sunny highway, then drives through a dark tunnel, then drives along a foggy mountain road.
+          [cite_start]A red car drives on a sunny highway, then drives through a dark tunnel, then drives along a foggy mountain road. [cite: 482]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/car_highway_tunnel_mountain.mp4" type="video/mp4">
+          <source src="static/videos/car_highway_tunnel_mountain.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A woman sits on a sofa in a living room, then stands up, then walks to the window, then opens the curtains and looks outside.
+          [cite_start]A woman sits on a sofa in a living room, then stands up, then walks to the window, then opens the curtains and looks outside. [cite: 483]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/sofa_window_curtains.mp4" type="video/mp4">
+          <source src="static/videos/sofa_window_curtains.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A student sits straight at a desk and opens a laptop, then types, then leans back and stretches arms.
+          [cite_start]A student sits straight at a desk and opens a laptop, then types, then leans back and stretches arms. [cite: 484]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/desk_laptop_student.mp4" type="video/mp4">
+          <source src="static/videos/desk_laptop_student.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
       <div class="column is-one-fifth">
         <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
-          A single tree stands in an open field on a sunny day, then dark clouds move in and cover the sky, then rain starts falling around the tree.
+          [cite_start]A single tree stands in an open field on a sunny day, then dark clouds move in and cover the sky, then rain starts falling around the tree. [cite: 485]
         </p>
         <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
-          <source src="static/videos/tree.mp4" type="video/mp4">
+          <source src="static/videos/tree.mp4#t=0.001" type="video/mp4">
         </video>
       </div>
 
     </div>
   </div>
 </section>
+
 <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <div class="bibtex-header">
@@ -455,5 +458,6 @@
   </div>
 </footer>
 
-  </body>
-  </html>
+  </main>
+</body>
+</html>
