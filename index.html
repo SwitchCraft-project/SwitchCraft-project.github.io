@@ -60,7 +60,7 @@
     </div>
   </section>
 
-  <section class="section hero is-light">
+  <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -83,11 +83,11 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Methodology</h2>
       <div class="columns is-centered">
-        <div class="column is-full">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Methodology</h2>
           <img src="static/images/flowc.png" alt="SwitchCraft Method Flowchart" style="width: 100%; border-radius: 8px;">
-          <div class="content has-text-justified" style="margin-top: 15px; font-size: 0.95rem;">
+          <div class="content has-text-justified" style="margin-top: 15px;">
             <p>
               <strong>Overview of SwitchCraft.</strong> <b>(a)</b> EAQS takes a text prompt and user specified event time spans, identifies anchor tokens for each event, and constructs event specific projectors from their attention keys. It steers video queries toward the target event and away from others in each temporal span. <b>(b)</b> ABSS estimates enhancement and suppression strengths by extracting dominant directions from the event keys and correcting the attention deficit. The updated queries pass through the video diffusion transformer so that each temporal span follows its intended event with smooth transitions.
             </p>
@@ -97,25 +97,20 @@
     </div>
   </section>
 
-  <section class="section has-background-light">
+  <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Qualitative Comparisons</h2>
-      <div class="content has-text-justified">
-        <p>
-          SwitchCraft executes all events in the intended order, prevents leakage and omission, and maintains subject and scene consistency compared to baseline methods.
-        </p>
-      </div>
-      
       <div class="columns is-centered">
-        <div class="column is-full">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Qualitative Comparisons</h2>
+          <div class="content has-text-justified">
+            <p>
+              SwitchCraft executes all events in the intended order, prevents leakage and omission, and maintains subject and scene consistency compared to baseline methods.
+            </p>
+          </div>
           <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
             <source src="static/videos/comparison.mp4" type="video/mp4">
           </video>
-        </div>
-      </div>
-
-      <div class="columns is-centered" style="margin-top: 20px;">
-        <div class="column is-full">
+          <br><br>
           <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
             <source src="static/videos/comparison_additional.mp4" type="video/mp4">
           </video>
@@ -126,38 +121,41 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Creative Occluding Transitions</h2>
-      <div class="content has-text-justified">
-        <p>
-          SwitchCraft produces in-shot occluding transitions that blend the first and last scenes while preserving subject identity, whereas baselines leave residual transition elements or degrade identity and scene coherence.
-        </p>
-      </div>
-
       <div class="columns is-centered">
-        <div class="column is-half">
-          <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-            <source src="static/videos/transition1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="column is-half">
-          <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-            <source src="static/videos/transition2.mp4" type="video/mp4">
-          </video>
+        <div class="column is-full-width">
+          <h2 class="title is-3">Creative Occluding Transitions</h2>
+          <div class="content has-text-justified">
+            <p>
+              SwitchCraft produces in-shot occluding transitions that blend the first and last scenes while preserving subject identity, whereas baselines leave residual transition elements or degrade identity and scene coherence.
+            </p>
+          </div>
+          <div class="columns is-centered">
+            <div class="column">
+              <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
+                <source src="static/videos/transition1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column">
+              <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
+                <source src="static/videos/transition2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section has-background-light">
+  <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Ablation Study</h2>
-      <div class="content has-text-justified">
-        <p>
-          Effectiveness of the key components. The full method yields complete sequences with stable quality, whereas removing parts leads to event leakage, omission, and degraded visual quality.
-        </p>
-      </div>
       <div class="columns is-centered">
-        <div class="column is-full">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Ablation Study</h2>
+          <div class="content has-text-justified">
+            <p>
+              Effectiveness of the key components. The full method yields complete sequences with stable quality, whereas removing parts leads to event leakage, omission, and degraded visual quality.
+            </p>
+          </div>
           <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
             <source src="static/videos/ablations.mp4" type="video/mp4">
           </video>
@@ -166,39 +164,35 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">More SwitchCraft Demos</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
-            <source src="static/videos/SwitchCraft_demos/demo1.mp4" type="video/mp4">
-          </video>
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3 has-text-centered" style="margin-bottom: 30px;">More SwitchCraft Demos</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-video1">
+            <video poster="" id="video1" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
+              <source src="static/videos/SwitchCraft_demos/demo1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video2">
+            <video poster="" id="video2" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
+              <source src="static/videos/SwitchCraft_demos/demo2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
+              <source src="static/videos/SwitchCraft_demos/demo3.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
-        
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
-            <source src="static/videos/SwitchCraft_demos/demo2.mp4" type="video/mp4">
-          </video>
-        </div>
-        
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop playsinline height="100%" style="border-radius: 8px;">
-            <source src="static/videos/SwitchCraft_demos/demo3.mp4" type="video/mp4">
-          </video>
-        </div>
-        
-        </div>
+      </div>
     </div>
   </section>
 
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-      </div>
-      <pre id="bibtex-code"><code>@inproceedings{xu2026switchcraft,
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{xu2026switchcraft,
   title={SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls},
   author={Xu, Qianxun and Song, Chenxi and Cai, Yujun and Zhang, Chi},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
