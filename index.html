@@ -1,430 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <meta name="title" content="SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls">
-  <meta name="description" content="SwitchCraft is a training-free framework for multi-event video generation that steers frame-level attention to align with relevant event prompts, preserving temporal consistency and visual fidelity.">
-  <meta name="keywords" content="SwitchCraft, video generation, diffusion models, multi-event, CVPR 2026, attention control, generative AI">
-  <meta name="author" content="Qianxun Xu, Chenxi Song, Yujun Cai, Chi Zhang">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
-  
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="SwitchCraft Project Page">
-  <meta property="og:title" content="SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls">
-  <meta property="og:description" content="A training-free framework for multi-event video generation using Event-Aligned Query Steering (EAQS) and Auto-Balance Strength Solver (ABSS).">
-  <meta property="og:url" content="https://switchcraft-project.github.io">
-  <meta property="og:image" content="https://switchcraft-project.github.io/static/images/sc_teaser.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="SwitchCraft Teaser Figure">
-  <meta property="article:published_time" content="2026-02-25T00:00:00.000Z">
-  <meta property="article:author" content="Qianxun Xu">
-  <meta property="article:section" content="Research">
-  <meta property="article:tag" content="Computer Vision">
-  <meta property="article:tag" content="Video Generation">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <meta name="twitter:title" content="SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls">
-  <meta name="twitter:description" content="A training-free framework for multi-event video generation using Event-Aligned Query Steering (EAQS) and Auto-Balance Strength Solver (ABSS).">
-  <meta name="twitter:image" content="https://switchcraft-project.github.io/static/images/sc_teaser.png">
-  <meta name="twitter:image:alt" content="SwitchCraft Teaser Figure">
-
-  <meta name="citation_title" content="SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls">
-  <meta name="citation_author" content="Xu, Qianxun">
-  <meta name="citation_author" content="Song, Chenxi">
-  <meta name="citation_author" content="Cai, Yujun">
-  <meta name="citation_author" content="Zhang, Chi">
-  <meta name="citation_publication_date" content="2026">
-  <meta name="citation_conference_title" content="CVPR">
-  <meta name="citation_pdf_url" content="https://switchcraft-project.github.io/static/pdfs/paper.pdf">
-  
-  <meta name="theme-color" content="#2563eb">
-  <meta name="msapplication-TileColor" content="#2563eb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://ajax.googleapis.com">
-  <link rel="preconnect" href="https://documentcloud.adobe.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-
-  <title>SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls</title>
-  
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
-  
-  <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
-  
-  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
-  <noscript>
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  </noscript>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script defer src="static/js/bulma-carousel.min.js"></script>
-  <script defer src="static/js/bulma-slider.min.js"></script>
-  <script defer src="static/js/index.js"></script>
-  
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls",
-    "description": "A training-free framework for multi-event video generation using Event-Aligned Query Steering (EAQS) and Auto-Balance Strength Solver (ABSS).",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "Qianxun Xu",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "AGI Lab, Westlake University & Duke Kunshan University"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Chenxi Song",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "AGI Lab, Westlake University"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Yujun Cai",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "The University of Queensland"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "Chi Zhang",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "AGI Lab, Westlake University"
-        }
-      }
-    ],
-    "datePublished": "2026-02-25",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CVPR"
-    },
-    "url": "https://switchcraft-project.github.io",
-    "image": "https://switchcraft-project.github.io/static/images/sc_teaser.png",
-    "keywords": ["Video Generation", "Multi-Event", "Diffusion Models", "Attention Control"],
-    "abstract": "Recent advances in text-to-video diffusion models have enabled high-fidelity and temporally coherent videos synthesis. However, current models are predominantly optimized for single-event generation. When handling multi-event prompts, without explicit temporal grounding, such models often produce blended or collapsed scenes that break the intended narrative. To address this limitation, we present SwitchCraft, a training-free framework for multi-event video generation...",
-    "citation": "@inproceedings{xu2026switchcraft, title={SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls}, author={Xu, Qianxun and Song, Chenxi and Cai, Yujun and Zhang, Chi}, booktitle={CVPR}, year={2026}}",
-    "isAccessibleForFree": true,
-    "license": "https://creativecommons.org/licenses/by/4.0/",
-    "mainEntity": {
-      "@type": "WebPage",
-      "@id": "https://switchcraft-project.github.io"
-    }
-  }
-  </script>
-</head>
-<body>
-
-
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
+<section class="section">
+  <div class="container" style="max-width: 1400px;">
+    <h2 class="title is-3 has-text-centered" style="margin-bottom: 30px;">More SwitchCraft Demos</h2>
+    
+    <div class="columns is-multiline is-centered">
+      
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A man raises one arm, then scratches his head, then runs forward.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/raise_point_run.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="works-list">
-        <a href="https://worldforge-agi.github.io/" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>WorldForge</h5>
-            <p>A novel generation framework for creating dynamic 3D worlds from a single image.</p>
-            <span class="work-venue">AGI Lab, Westlake University</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A girl bends her knees, then touches her toes, then stands up.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/bend_touch_stand_tall.mp4" type="video/mp4">
+        </video>
       </div>
-    </div>
-  </div>
 
-  <main id="main-content">
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            
-            <h1 class="title is-1 publication-title">SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls</h1>
-            
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="#" target="_blank">Qianxun Xu</a><sup>1, 2</sup>,</span>
-                <span class="author-block">
-                  <a href="#" target="_blank">Chenxi Song</a><sup>1</sup>,</span>
-                  <span class="author-block">
-                    <a href="#" target="_blank">Yujun Cai</a><sup>3</sup>,</span>
-                    <span class="author-block">
-                      <a href="#" target="_blank">Chi Zhang</a><sup>1</sup>
-                    </span>
-                  </div>
-
-                  <div class="is-size-5 publication-authors" style="margin-top: 15px;">
-                    <span class="author-block"><sup>1</sup>AGI Lab, Westlake University</span>&nbsp;&nbsp;
-                    <span class="author-block"><sup>2</sup>Duke Kunshan University</span>&nbsp;&nbsp;
-                    <span class="author-block"><sup>3</sup>The University of Queensland</span>
-                  </div>
-
-                  <div class="is-size-5 publication-venue" style="margin-top: 15px; font-weight: bold;">
-                    <span>CVPR 2026</span>
-                  </div>
-
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                      <span class="link-block">
-                        <a href="static/pdfs/paper.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                  <span class="link-block">
-                    <a href="https://github.com/switchcraft-project" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <span class="link-block">
-                  <a href="#" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          In a living room, a dog sits, then jumps onto the sofa, then lies down.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/dog_sit_jump_lie.mp4" type="video/mp4">
+        </video>
       </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A girl is jumping in a gym, then stops and claps her hands.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/gym_jump_clap.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          On a beach, a woman jogs, then drinks from a bottle, then continues jogging.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/jog_drink_jog.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A woman raises both hands, then points with one finger forward, then gives a thumbs up.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/raise_hands_point_thumbs_up.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A red car drives on a sunny highway, then drives through a dark tunnel, then drives along a foggy mountain road.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/car_highway_tunnel_mountain.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A woman sits on a sofa in a living room, then stands up, then walks to the window, then opens the curtains and looks outside.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/sofa_window_curtains.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A student sits straight at a desk and opens a laptop, then types, then leans back and stretches arms.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/desk_laptop_student.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column is-one-fifth">
+        <p class="is-size-7 has-text-centered" style="min-height: 4em; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px;">
+          A single tree stands in an open field on a sunny day, then dark clouds move in and cover the sky, then rain starts falling around the tree.
+        </p>
+        <video controls muted playsinline preload="metadata" width="100%" style="border-radius: 6px;">
+          <source src="static/videos/tree.mp4" type="video/mp4">
+        </video>
+      </div>
+
     </div>
   </div>
 </section>
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <img src="static/images/sc_teaser.png" alt="SwitchCraft Teaser Figure" style="width: 100%; border-radius: 8px;">
-      <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 1rem;">
-        <strong>Figure 1.</strong> SwitchCraft enables flexible multi-event video generation across multiple actions and scenes with smooth transitions. It steers attention to enhance prompt alignment and maintain coherent temporal evolution while preserving global information.
-      </h2>
-    </div>
-  </div>
-</section>
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Recent advances in text-to-video diffusion models have enabled high-fidelity and temporally coherent videos synthesis. However, current models are predominantly optimized for single-event generation. When handling multi-event prompts, without explicit temporal grounding, such models often produce blended or collapsed scenes that break the intended narrative. 
-          </p>
-          <p>
-            To address this limitation, we present SwitchCraft, a training-free framework for multi-event video generation. Our key insight is that uniform prompt injection across time ignores the correspondence between events and frames. To this end, we introduce <b>Event-Aligned Query Steering (EAQS)</b>, which steers frame-level attention to align with relevant event prompts. Furthermore, we propose <b>Auto-Balance Strength Solver (ABSS)</b>, which adaptively balances steering strength to preserve temporal consistency and visual fidelity. 
-          </p>
-          <p>
-            Extensive experiments demonstrate that SwitchCraft substantially improves prompt alignment, event clarity, and scene consistency compared with existing baselines, offering a simple yet effective solution for multi-event video generation.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Methodology</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <img src="static/images/flowc.png" alt="SwitchCraft Method Flowchart" style="width: 100%; border-radius: 8px;">
-          <div class="content has-text-justified" style="margin-top: 15px;">
-            <p>
-              <strong>Overview of SwitchCraft.</strong> <b>(a)</b> EAQS takes a text prompt and user specified event time spans, identifies anchor tokens for each event, and constructs event specific projectors from their attention keys. It steers video queries toward the target event and away from others in each temporal span. <b>(b)</b> ABSS estimates enhancement and suppression strengths by extracting dominant directions from the event keys and correcting the attention deficit. The updated queries pass through the video diffusion transformer so that each temporal span follows its intended event with smooth transitions.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Qualitative Comparisons</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <div class="content has-text-justified">
-            <p>
-              SwitchCraft executes all events in the intended order, prevents leakage and omission, and maintains subject and scene consistency compared to baseline methods.
-            </p>
-          </div>
-          <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-            <source src="static/videos/comparison.mp4" type="video/mp4">
-          </video>
-          <br><br>
-          <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-            <source src="static/videos/comparison_additional.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Creative Occluding Transitions</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <div class="content has-text-justified">
-            <p>
-              SwitchCraft produces in-shot occluding transitions that blend the first and last scenes while preserving subject identity, whereas baselines leave residual transition elements or degrade identity and scene coherence.
-            </p>
-          </div>
-          <div class="columns is-centered">
-            <div class="column is-half">
-              <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-                <source src="static/videos/transition1.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="column is-half">
-              <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-                <source src="static/videos/transition2.mp4" type="video/mp4">
-              </video>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3">Ablation Study</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full">
-          <div class="content has-text-justified">
-            <p>
-              Effectiveness of the key components. The full method yields complete sequences with stable quality, whereas removing parts leads to event leakage, omission, and degraded visual quality.
-            </p>
-          </div>
-          <video autoplay controls muted loop playsinline width="100%" style="border-radius: 8px;">
-            <source src="static/videos/ablations.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">More SwitchCraft Demos</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <source src="static/videos/SwitchCraft_demos/demo1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <source src="static/videos/SwitchCraft_demos/demo2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <source src="static/videos/SwitchCraft_demos/demo3.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
-          <i class="fas fa-copy"></i>
-          <span class="copy-text">Copy</span>
-        </button>
-      </div>
-      <pre id="bibtex-code"><code>@inproceedings{xu2026switchcraft,
-  title={SwitchCraft: Training-Free Multi-Event Video Generation with Attention Controls},
-  author={Xu, Qianxun and Song, Chenxi and Cai, Yujun and Zhang, Chi},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2026}
-}</code></pre>
-    </div>
-</section>
-<footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-</body>
-  </html>
